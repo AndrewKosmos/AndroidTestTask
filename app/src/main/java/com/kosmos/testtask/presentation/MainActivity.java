@@ -1,8 +1,10 @@
-package com.kosmos.testtask;
+package com.kosmos.testtask.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.kosmos.testtask.R;
 
 public class MainActivity extends AppCompatActivity {
 
