@@ -10,6 +10,13 @@ public class Speciality {
     private Integer id;
     private String name;
 
+    public Speciality() {}
+
+    public Speciality(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }
