@@ -22,12 +22,24 @@ public abstract class ProfileDao {
     @Query("SELECT * FROM employees WHERE id = :id")
     public abstract Single<EmployeeDbModel> getEmployee(String id);
 
-    @Transaction
-    public Single<ProfileModel> getProfileInfo(String userId) {
+    private Single<ProfileModel> getProfileSingle(String userId) {
         Single<EmployeeDbModel> employeeDbModelSingle = getEmployee(userId);
         Single<List<SpecialityDbModel>> specialtiesSingle = getSpecialtiesForEmployee(userId);
         Single<ProfileModel> resultSingle = Single.zip(employeeDbModelSingle, specialtiesSingle, ProfileModel::new);
         return resultSingle;
+    }
+
+//    @Transaction
+//    public Single<ProfileModel> getProfileInfo(String userId) {
+//        Single<EmployeeDbModel> employeeDbModelSingle = getEmployee(userId);
+//        Single<List<SpecialityDbModel>> specialtiesSingle = getSpecialtiesForEmployee(userId);
+//        Single<ProfileModel> resultSingle = Single.zip(employeeDbModelSingle, specialtiesSingle, ProfileModel::new);
+//        return resultSingle;
+//    }
+
+    @Transaction
+    public void getProfileInfo(String userId) {
+        getProfileSingle(userId);
     }
 
 }

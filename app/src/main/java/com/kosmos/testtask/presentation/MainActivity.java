@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.kosmos.testtask.R;
 import com.kosmos.testtask.TestApplication;
+import com.kosmos.testtask.data.database.global.AppDatabase;
 import com.kosmos.testtask.data.network.WebServiceApi;
 import com.kosmos.testtask.di.global.ApplicationComponent;
 import com.kosmos.testtask.domain.interactors.MainInteractor;
@@ -30,18 +31,10 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
         setContentView(R.layout.activity_main);
 
         applicationComponent = ((TestApplication)getApplication()).getAppComponent();
-        WebServiceApi webServiceApi = applicationComponent.getWebServiceApi();
-        mainPresenter = new MainPresenterImpl(new MainInteractor(applicationComponent.getWebResponseRepository(), applicationComponent.getSchedueler()),
+        mainPresenter = new MainPresenterImpl(new MainInteractor(applicationComponent.getWebResponseRepository(),
+                                                applicationComponent.getSchedueler()),
                 this, applicationComponent.getSchedueler());
         mainPresenter.getWebResponse();
-
-        /*WebServiceApi webServiceApi = ((TestApplication)getApplication()).getAppComponent().getWebServiceApi();
-        Single<WebResponse> responseSingle = webServiceApi.getWebResponse();
-        responseSingle.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(value -> {
-                    Toast.makeText(getApplicationContext(),value.toString() + " Hash == " + value.hashCode(),Toast.LENGTH_LONG).show();
-                });*/
     }
 
     @Override

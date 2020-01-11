@@ -22,12 +22,17 @@ public class EmployeeDbModel {
     @ColumnInfo(name = "avatar_url")
     private String avatarUrl;
 
-    public EmployeeDbModel(String name, String lastName, String birthday, String url) {
+    public EmployeeDbModel(String id, String name, String lastName, String birthday, String avatarUrl) {
         this.name = name;
         this.lastName = lastName;
         this.birthday = birthday;
-        this.avatarUrl = url;
-        this.id = generateId();
+        this.avatarUrl = avatarUrl;
+        if (id == null || id.length() <= 0) {
+            this.id = generateId();
+        }
+        else {
+            this.id = id;
+        }
     }
 
     public String getId() {

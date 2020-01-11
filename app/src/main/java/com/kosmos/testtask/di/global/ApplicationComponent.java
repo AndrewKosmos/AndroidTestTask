@@ -2,6 +2,7 @@ package com.kosmos.testtask.di.global;
 
 import android.content.Context;
 
+import com.kosmos.testtask.data.database.global.AppDatabase;
 import com.kosmos.testtask.data.network.WebServiceApi;
 import com.kosmos.testtask.domain.repositories.WebResponseRepository;
 import com.kosmos.testtask.presentation.SchedulersProvider;
@@ -20,5 +21,6 @@ public interface ApplicationComponent {
     Retrofit getRetrofit();
     WebServiceApi getWebServiceApi();
     SchedulersProvider getSchedueler();
+    AppDatabase getAppDatabase();
 
 }

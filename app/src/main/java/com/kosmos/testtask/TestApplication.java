@@ -19,7 +19,7 @@ public class TestApplication extends Application {
 
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this, new SchedulersProvider()))
-                .dataModule(new DataModule(Constants.WEB_BASE_URL))
+                .dataModule(new DataModule(this, Constants.WEB_BASE_URL, "database"))
                 .build();
     }
 

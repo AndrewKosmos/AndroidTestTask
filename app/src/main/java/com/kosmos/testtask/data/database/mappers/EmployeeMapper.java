@@ -16,11 +16,11 @@ public abstract class EmployeeMapper {
         String lastName = capitalizeString(person.getLastName().toLowerCase());
         String birthday = normalizeDate(person.getBirthday());
         String url = person.getAvatarUrl();
-        return new EmployeeDbModel(name, lastName, birthday, url);
+        return new EmployeeDbModel(null, name, lastName, birthday, url);
     }
 
     public static EmployeeDbModel map(Employee employee) {
-        return new EmployeeDbModel(employee.getName(), employee.getLastName(),
+        return new EmployeeDbModel(employee.getId(), employee.getName(), employee.getLastName(),
                 employee.getBirthday(), employee.getAvatarUrl());
     }
 

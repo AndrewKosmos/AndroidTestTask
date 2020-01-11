@@ -3,6 +3,7 @@ package com.kosmos.testtask.data.database.models;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -10,7 +11,8 @@ import static androidx.room.ForeignKey.CASCADE;
 @Entity(tableName = "employee_specialty",
         foreignKeys = { @ForeignKey(entity = EmployeeDbModel.class, parentColumns = "id", childColumns = "empId", onDelete = CASCADE),
                         @ForeignKey(entity = SpecialityDbModel.class, parentColumns = "id", childColumns = "specId", onDelete = CASCADE)
-        })
+        },
+        indices = {@Index("empId"), @Index("specId")})
 public class EmployeeSpecialtyDbModel {
 
     @PrimaryKey(autoGenerate = true)
