@@ -4,12 +4,11 @@ import com.kosmos.testtask.data.database.models.EmployeeDbModel;
 import com.kosmos.testtask.domain.models.Employee;
 import com.kosmos.testtask.domain.models.Person;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.regex.Pattern;
+
+import static com.kosmos.testtask.domain.utils.StringUtils.capitalizeString;
+import static com.kosmos.testtask.domain.utils.StringUtils.normalizeDate;
 
 public abstract class EmployeeMapper {
 
@@ -45,30 +44,6 @@ public abstract class EmployeeMapper {
             resultList.add(map(employee));
         }
         return resultList;
-    }
-
-    private static String capitalizeString(String str) {
-        if (str == null || str.length() <= 0) return "";
-        return str.substring(0,1).toUpperCase() + str.substring(1);
-    }
-
-    private static String normalizeDate(String date) {
-        if (date == null || date.length() <= 0) return "";
-        if (!Pattern.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d", date)) {
-            if (Pattern.matches("\\d\\d-\\d\\d-\\d\\d\\d\\d", date)) {
-                try {
-                    Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(date);
-                    return new SimpleDateFormat("yyyy-MM-dd").format(date1);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    return "";
-                }
-            }
-            else {
-                return "";
-            }
-        }
-        return date;
     }
 
 }

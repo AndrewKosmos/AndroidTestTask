@@ -2,14 +2,19 @@ package com.kosmos.testtask.presentation.presenters;
 
 import android.util.Log;
 
-import com.kosmos.testtask.data.database.mappers.EmployeeMapper;
-import com.kosmos.testtask.data.database.models.EmployeeDbModel;
 import com.kosmos.testtask.domain.interactors.MainInteractor;
+import com.kosmos.testtask.domain.models.Employee;
+import com.kosmos.testtask.domain.models.EmployeeSpecialtyRelation;
 import com.kosmos.testtask.domain.models.Person;
+import com.kosmos.testtask.domain.models.Speciality;
 import com.kosmos.testtask.domain.models.WebResponse;
+import com.kosmos.testtask.domain.utils.StringUtils;
 import com.kosmos.testtask.presentation.SchedulersProvider;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainPresenterImpl implements MainPresenter {
 
@@ -31,24 +36,48 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     private void onWebResponseLoaded(WebResponse response) {
-        //mainView.hideProgress();
-        //mainView.showError("Json Loaded! " + response.toString());
         List<Person> personList = response.getPersonList();
-        for (Person person : personList) {
-            EmployeeDbModel employeeDbModel = EmployeeMapper.map(person);
-            String res = "";
-            res += "Id = " + employeeDbModel.getId() + " \r\n" +
-                    "Name = " + employeeDbModel.getName() + "\r\n" +
-                    "LName = " + employeeDbModel.getLastName() + "\r\n" +
-                    "BDay = " + employeeDbModel.getBirthday() + "\r\n" +
-                    "Url = " + employeeDbModel.getAvatarUrl() + "\r\n\r\n";
-            Log.d("ANDRE", "Employee: " + res);
+        List<Employee> employees = new ArrayList<>();
+        List<Speciality> specialities;
+        Map<Integer, Speciality> specialityMap = new HashMap<>();
+        List<EmployeeSpecialtyRelation> relations = new ArrayList<>();
+
+        for(Person person : personList) {
+            Employee employee = new Employee(null,
+                    StringUtils.capitalizeString(person.getName().toLowerCase()),
+                    StringUtils.capitalizeString(person.getLastName().toLowerCase()),
+                    StringUtils.normalizeDate(person.getBirthday()),
+                    person.getAvatarUrl());
+            employees.add(employee);
+            List<Speciality> list = person.getSpecialities();
+            for(Speciality speciality : list) {
+                if(!specialityMap.containsKey(speciality.getId()))
+                    specialityMap.put(speciality.getId(), speciality);
+                relations.add(new EmployeeSpecialtyRelation(employee.getId(), speciality.getId()));
+            }
+
         }
+
+        specialities = new ArrayList<Speciality>(specialityMap.values());
+        mainInteractor.saveDataToDatabase(employees,specialities,relations)
+                .observeOn(schedulersProvider.ui())
+                .subscribe(this::onDataSaved, this::onDataSaveError);
     }
 
     private void onWebResponseError(Throwable throwable) {
         //todo: check throwable
         mainView.showError("Error while loading Json");
+    }
+
+    private void onDataSaved() {
+        Log.d("MainPresenter", "onDataSaved: DATA SAVED!!!");
+        mainView.hideProgress();
+        //mainInteractor.getAllEmployees().observeOn(schedulersProvider.ui()).subscribe(this::onEmplLoaded, this::onEmpLoadFail);
+    }
+
+    private void onDataSaveError(Throwable throwable) {
+        mainView.hideProgress();
+        Log.d("MainPresenter", "onDataSaveError: ERROR!");
     }
 
     @Override

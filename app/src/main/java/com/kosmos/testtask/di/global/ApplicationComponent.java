@@ -5,6 +5,7 @@ import android.content.Context;
 import com.kosmos.testtask.data.database.global.AppDatabase;
 import com.kosmos.testtask.data.network.WebServiceApi;
 import com.kosmos.testtask.domain.repositories.EmployeeRepository;
+import com.kosmos.testtask.domain.repositories.EmployeeSpecialtyRepository;
 import com.kosmos.testtask.domain.repositories.ProfileRepository;
 import com.kosmos.testtask.domain.repositories.SpecialityRepository;
 import com.kosmos.testtask.domain.repositories.WebResponseRepository;
@@ -28,5 +29,6 @@ public interface ApplicationComponent {
     EmployeeRepository getEmployeeRepository();
     SpecialityRepository getSpecialtyRepository();
     ProfileRepository getProfileRepository();
+    EmployeeSpecialtyRepository getEmployeeSpecialtyRepository();
 
 }

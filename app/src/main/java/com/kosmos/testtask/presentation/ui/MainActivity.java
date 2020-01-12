@@ -1,4 +1,4 @@
-package com.kosmos.testtask.presentation;
+package com.kosmos.testtask.presentation.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
         applicationComponent = ((TestApplication)getApplication()).getAppComponent();
         mainPresenter = new MainPresenterImpl(new MainInteractor(applicationComponent.getWebResponseRepository(),
+                                                applicationComponent.getEmployeeRepository(),
+                                                applicationComponent.getSpecialtyRepository(),
+                                                applicationComponent.getEmployeeSpecialtyRepository(),
                                                 applicationComponent.getSchedueler()),
                 this, applicationComponent.getSchedueler());
         mainPresenter.getWebResponse();

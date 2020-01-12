@@ -5,15 +5,18 @@ import android.content.Context;
 import androidx.room.Room;
 
 import com.kosmos.testtask.data.database.dao.EmployeeDao;
+import com.kosmos.testtask.data.database.dao.EmployeeSpecialtyDao;
 import com.kosmos.testtask.data.database.dao.ProfileDao;
 import com.kosmos.testtask.data.database.dao.SpecialityDao;
 import com.kosmos.testtask.data.database.global.AppDatabase;
 import com.kosmos.testtask.data.network.WebServiceApi;
 import com.kosmos.testtask.data.repositories.EmployeeRepositoryImpl;
+import com.kosmos.testtask.data.repositories.EmployeeSpecialtyRepositoryImpl;
 import com.kosmos.testtask.data.repositories.ProfileRepositoryImpl;
 import com.kosmos.testtask.data.repositories.SpecialityRepositoryImpl;
 import com.kosmos.testtask.data.repositories.WebResponseRepositoryImpl;
 import com.kosmos.testtask.domain.repositories.EmployeeRepository;
+import com.kosmos.testtask.domain.repositories.EmployeeSpecialtyRepository;
 import com.kosmos.testtask.domain.repositories.ProfileRepository;
 import com.kosmos.testtask.domain.repositories.SpecialityRepository;
 import com.kosmos.testtask.domain.repositories.WebResponseRepository;
@@ -87,6 +90,12 @@ public class DataModule {
 
     @Provides
     @Singleton
+    EmployeeSpecialtyDao provideEmployeeSpecialtyDao(AppDatabase appDatabase) {
+        return appDatabase.employeeSpecialtyDao();
+    }
+
+    @Provides
+    @Singleton
     EmployeeRepository provideEmployeeRepository(EmployeeRepositoryImpl employeeRepository) {
         return employeeRepository;
     }
@@ -101,5 +110,11 @@ public class DataModule {
     @Singleton
     ProfileRepository provideProfileRepository(ProfileRepositoryImpl profileRepository) {
         return profileRepository;
+    }
+
+    @Provides
+    @Singleton
+    EmployeeSpecialtyRepository provideEmployeeSpecialtyRepos(EmployeeSpecialtyRepositoryImpl repository) {
+        return repository;
     }
 }
