@@ -30,8 +30,6 @@ public class SpecialitiesAdapter extends RecyclerView.Adapter<SpecialitiesAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("ANDRE", "onCreateViewHolder: Context = " + context.toString());
-        Log.d("ANDRE", "onCreateViewHolder: CREATE HOLDER");
         View view = LayoutInflater.from(context).inflate(R.layout.speciality_item, parent, false);
         return new SpecialitiesAdapter.ViewHolder(view);
     }
@@ -63,7 +61,7 @@ public class SpecialitiesAdapter extends RecyclerView.Adapter<SpecialitiesAdapte
     }
 
     public interface AdapterListener {
-        void itemClicked(Integer specialityId);
+        void itemClicked(int specialityId);
     }
 
 }

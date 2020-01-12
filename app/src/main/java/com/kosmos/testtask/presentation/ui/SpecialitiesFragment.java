@@ -34,17 +34,23 @@ public class SpecialitiesFragment extends Fragment implements SpecialitiesAdapte
     @BindView(R.id.specialities_recyclerView)
     RecyclerView recyclerView;
 
+    @BindView(R.id.spec_loading_layout)
+    View loadingLayout;
+
     private SpecialitiesAdapter adapter;
     private SpecialitiesFragmentPresenter presenter;
     private ApplicationComponent applicationComponent;
+    private FragmentListener fragmentListener;
 
     public SpecialitiesFragment() {
         // Required empty public constructor
     }
 
-    public static SpecialitiesFragment newInstance(ApplicationComponent component) {
+    public static SpecialitiesFragment newInstance(ApplicationComponent component,
+                                                   FragmentListener fragmentListener) {
         SpecialitiesFragment fragment = new SpecialitiesFragment();
         fragment.applicationComponent = component;
+        fragment.fragmentListener = fragmentListener;
         fragment.presenter = new SpecialitiesFragmentPresenterImpl(
                 new SpecialitiesFragmentInteractor(fragment.applicationComponent.getSpecialtyRepository(),
                         fragment.applicationComponent.getSchedueler()),
@@ -64,14 +70,14 @@ public class SpecialitiesFragment extends Fragment implements SpecialitiesAdapte
         View view = inflater.inflate(R.layout.fragment_specialities, container, false);
         ButterKnife.bind(this, view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), recyclerView.getLayoutManager().getLayoutDirection()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         presenter.getAllSpecialities();
         return view;
     }
 
     @Override
-    public void itemClicked(Integer specialityId) {
-        Toast.makeText(getContext(), "Speciality " + specialityId.toString() + " clicked!", Toast.LENGTH_SHORT).show();
+    public void itemClicked(int specialityId) {
+        fragmentListener.specialityClicked(specialityId);
     }
 
     @Override
@@ -82,16 +88,20 @@ public class SpecialitiesFragment extends Fragment implements SpecialitiesAdapte
 
     @Override
     public void showProgress() {
-
+        loadingLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        loadingLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void showError(String message) {
 
+    }
+
+    public interface FragmentListener {
+        void specialityClicked(int specialityId);
     }
 }

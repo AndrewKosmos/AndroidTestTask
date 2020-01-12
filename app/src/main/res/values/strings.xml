@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">TestTask</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="age_template">age : N</string>
+    <string name="name_template">Name</string>
+    <string name="surename_template">Surename</string>
 </resources>
