@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.ui.ProfileFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/frameBg"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textColor="@color/cardview_light_background"
+                android:text="@string/name_template"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"/>
+
+            <TextView
+                android:id="@+id/profile_surename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="24sp"
+                android:text="@string/surename_template"
+                android:layout_centerHorizontal="true"
+                android:layout_alignTop="@id/profile_name"
+                android:layout_marginTop="30dp"
+                />
+
+        </RelativeLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/frameBg"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-50dp"
+
+            android:src="@mipmap/ic_launcher_round"
+            app:civ_border_color="@color/colorPrimaryDark"
+            app:civ_border_width="6px" />
+
+        <TextView
+            android:id="@+id/date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/date_label"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@id/profile_avatar"
+            android:layout_marginTop="120dp"/>
+
+        <TextView
+            android:id="@+id/profile_birtday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/birthday_tempate"
+            android:layout_marginLeft="16dp"
+            android:layout_alignTop="@id/date_label"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/profile_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/specialities_label"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@id/profile_birtday"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/profile_specialities"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_alignTop="@id/profile_label"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"/>
+
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/profile_loading_layout"
+        layout="@layout/view_loading"
+        android:visibility="gone"/>
+
+</FrameLayout>

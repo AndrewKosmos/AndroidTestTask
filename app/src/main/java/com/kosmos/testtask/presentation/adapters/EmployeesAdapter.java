@@ -13,13 +13,9 @@ import com.bumptech.glide.Glide;
 import com.kosmos.testtask.R;
 import com.kosmos.testtask.domain.models.Employee;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -57,7 +53,7 @@ public class EmployeesAdapter extends RecyclerView.Adapter<EmployeesAdapter.View
         }
         String birthday = employee.getBirthday();
         if (birthday == null || birthday.length() <= 0) {
-            holder.ageTextView.setText("-");
+            holder.ageTextView.setText("Возраст: -");
         }
         else {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

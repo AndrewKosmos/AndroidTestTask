@@ -32,9 +32,13 @@ public class EmployeesFragment extends Fragment implements EmployeesAdapter.Adap
     @BindView(R.id.employees_recyclerView)
     RecyclerView recyclerView;
 
+    @BindView(R.id.employee_loading_layout)
+    View loadingLayout;
+
     private EmployeesAdapter adapter;
     private EmployeesFragmentPresenter presenter;
     private ApplicationComponent component;
+    private FragmentListener fragmentListener;
     private int specialityId;
 
     public EmployeesFragment() {
@@ -42,9 +46,11 @@ public class EmployeesFragment extends Fragment implements EmployeesAdapter.Adap
     }
 
     public static EmployeesFragment newInstance(ApplicationComponent component,
+                                                FragmentListener fragmentListener,
                                                 int specialityId) {
         EmployeesFragment fragment = new EmployeesFragment();
         fragment.component = component;
+        fragment.fragmentListener = fragmentListener;
         fragment.specialityId = specialityId;
         fragment.presenter = new EmployeesFragmentPresenterImpl(
                 new EmployeesFragmentInteractor(fragment.component.getEmployeeRepository(),
@@ -52,10 +58,6 @@ public class EmployeesFragment extends Fragment implements EmployeesAdapter.Adap
                 fragment,
                 fragment.component.getSchedueler()
         );
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
         return fragment;
     }
 
@@ -77,7 +79,7 @@ public class EmployeesFragment extends Fragment implements EmployeesAdapter.Adap
 
     @Override
     public void itemClicked(String userId) {
-        Toast.makeText(getContext(), "Employee " + userId + " clicked!", Toast.LENGTH_SHORT).show();
+        fragmentListener.employeeClicked(userId);
     }
 
     @Override
@@ -88,16 +90,20 @@ public class EmployeesFragment extends Fragment implements EmployeesAdapter.Adap
 
     @Override
     public void showProgress() {
-
+        loadingLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        loadingLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void showError(String message) {
 
+    }
+
+    public interface FragmentListener {
+        void employeeClicked(String userId);
     }
 }

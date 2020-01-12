@@ -20,7 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements MainPresenter.View,
-        SpecialitiesFragment.FragmentListener {
+        SpecialitiesFragment.FragmentListener,
+        EmployeesFragment.FragmentListener {
 
     @BindView(R.id.loading_layout)
     View loadingLayout;
@@ -76,9 +77,20 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     @Override
     public void specialityClicked(int specialityId) {
         EmployeesFragment employeesFragment = EmployeesFragment.newInstance(applicationComponent,
+                this,
                 specialityId);
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, employeesFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void employeeClicked(String userId) {
+        ProfileFragment profileFragment = ProfileFragment.newInstance(applicationComponent,
+                userId);
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, profileFragment)
                 .addToBackStack(null)
                 .commit();
     }

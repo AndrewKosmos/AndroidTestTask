@@ -3,4 +3,7 @@
     <string name="age_template">age : N</string>
     <string name="name_template">Name</string>
     <string name="surename_template">Surename</string>
+    <string name="birthday_tempate">00.00.0000 г. (Возраст: -)</string>
+    <string name="specialities_label">Специальности:</string>
+    <string name="date_label">Дата рождения:</string>
 </resources>
