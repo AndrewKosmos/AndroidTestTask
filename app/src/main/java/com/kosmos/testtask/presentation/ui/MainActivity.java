@@ -1,9 +1,12 @@
 package com.kosmos.testtask.presentation.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.kosmos.testtask.R;
@@ -20,6 +23,9 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
     @BindView(R.id.loading_layout)
     View loadingLayout;
+
+    @BindView(R.id.fragment_container)
+    FrameLayout fragmentContainer;
 
     private MainPresenter mainPresenter;
     private ApplicationComponent applicationComponent;
@@ -53,5 +59,14 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     @Override
     public void showError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showSpecialitiesFragment() {
+        SpecialitiesFragment specialitiesFragment = SpecialitiesFragment.newInstance(applicationComponent);
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction()
+                .add(R.id.fragment_container, specialitiesFragment)
+                .commit();
     }
 }

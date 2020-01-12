@@ -72,7 +72,7 @@ public class MainPresenterImpl implements MainPresenter {
     private void onDataSaved() {
         Log.d("MainPresenter", "onDataSaved: DATA SAVED!!!");
         mainView.hideProgress();
-        //mainInteractor.getAllEmployees().observeOn(schedulersProvider.ui()).subscribe(this::onEmplLoaded, this::onEmpLoadFail);
+        mainView.showSpecialitiesFragment();
     }
 
     private void onDataSaveError(Throwable throwable) {
