@@ -4,9 +4,18 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+import com.kosmos.testtask.data.database.dao.EmployeeDao;
+import com.kosmos.testtask.data.database.dao.ProfileDao;
+import com.kosmos.testtask.data.database.dao.SpecialityDao;
 import com.kosmos.testtask.data.database.global.AppDatabase;
 import com.kosmos.testtask.data.network.WebServiceApi;
+import com.kosmos.testtask.data.repositories.EmployeeRepositoryImpl;
+import com.kosmos.testtask.data.repositories.ProfileRepositoryImpl;
+import com.kosmos.testtask.data.repositories.SpecialityRepositoryImpl;
 import com.kosmos.testtask.data.repositories.WebResponseRepositoryImpl;
+import com.kosmos.testtask.domain.repositories.EmployeeRepository;
+import com.kosmos.testtask.domain.repositories.ProfileRepository;
+import com.kosmos.testtask.domain.repositories.SpecialityRepository;
 import com.kosmos.testtask.domain.repositories.WebResponseRepository;
 
 import javax.inject.Singleton;
@@ -56,5 +65,41 @@ public class DataModule {
     @Singleton
     AppDatabase provideAppDatabase() {
         return Room.databaseBuilder(context, AppDatabase.class, databaseName).build();
+    }
+
+    @Provides
+    @Singleton
+    EmployeeDao provideEmployeeDao(AppDatabase appDatabase) {
+        return appDatabase.employeeDao();
+    }
+
+    @Provides
+    @Singleton
+    SpecialityDao provideSpecialityDao(AppDatabase appDatabase) {
+        return appDatabase.specialityDao();
+    }
+
+    @Provides
+    @Singleton
+    ProfileDao provideProfileDao(AppDatabase appDatabase) {
+        return appDatabase.profileDao();
+    }
+
+    @Provides
+    @Singleton
+    EmployeeRepository provideEmployeeRepository(EmployeeRepositoryImpl employeeRepository) {
+        return employeeRepository;
+    }
+
+    @Provides
+    @Singleton
+    SpecialityRepository provideSpecialityRepository(SpecialityRepositoryImpl specialityRepository) {
+        return specialityRepository;
+    }
+
+    @Provides
+    @Singleton
+    ProfileRepository provideProfileRepository(ProfileRepositoryImpl profileRepository) {
+        return profileRepository;
     }
 }

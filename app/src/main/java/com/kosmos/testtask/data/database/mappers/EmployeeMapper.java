@@ -6,7 +6,9 @@ import com.kosmos.testtask.domain.models.Person;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public abstract class EmployeeMapper {
@@ -27,6 +29,22 @@ public abstract class EmployeeMapper {
     public static Employee mapToDomainModel(EmployeeDbModel dbModel) {
         return new Employee(dbModel.getId(), dbModel.getName(), dbModel.getLastName(),
                 dbModel.getBirthday(), dbModel.getAvatarUrl());
+    }
+
+    public static List<Employee> mapToDomainList(List<EmployeeDbModel> models) {
+        List<Employee> resultList = new ArrayList<>();
+        for (EmployeeDbModel model : models) {
+            resultList.add(mapToDomainModel(model));
+        }
+        return resultList;
+    }
+
+    public static List<EmployeeDbModel> mapList(List<Employee> employees) {
+        List<EmployeeDbModel> resultList = new ArrayList<>();
+        for (Employee employee : employees) {
+            resultList.add(map(employee));
+        }
+        return resultList;
     }
 
     private static String capitalizeString(String str) {

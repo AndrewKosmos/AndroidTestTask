@@ -22,6 +22,10 @@ public abstract class ProfileDao {
     @Query("SELECT * FROM employees WHERE id = :id")
     public abstract Single<EmployeeDbModel> getEmployee(String id);
 
+    public Single<ProfileModel> getProfile(String userId) {
+        return getProfileSingle(userId);
+    }
+
     private Single<ProfileModel> getProfileSingle(String userId) {
         Single<EmployeeDbModel> employeeDbModelSingle = getEmployee(userId);
         Single<List<SpecialityDbModel>> specialtiesSingle = getSpecialtiesForEmployee(userId);
@@ -37,9 +41,9 @@ public abstract class ProfileDao {
 //        return resultSingle;
 //    }
 
-    @Transaction
-    public void getProfileInfo(String userId) {
-        getProfileSingle(userId);
-    }
+//    @Transaction
+//    public void getProfileInfo(String userId) {
+//        getProfileSingle(userId);
+//    }
 
 }

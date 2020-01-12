@@ -1,5 +1,7 @@
 package com.kosmos.testtask.domain.models;
 
+import java.util.UUID;
+
 public class Employee {
 
     private String id;
@@ -11,11 +13,16 @@ public class Employee {
     public Employee() {}
 
     public Employee(String id, String name, String lastName, String date, String url) {
-        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.birthday = date;
         this.avatarUrl = url;
+        if (id == null || id.length() <= 0) {
+            this.id = generateId();
+        }
+        else {
+            this.id = id;
+        }
     }
 
     public String getId() {
@@ -56,5 +63,10 @@ public class Employee {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    private String generateId() {
+        String key = name + "/" + lastName + "/" + birthday;
+        return UUID.nameUUIDFromBytes(key.getBytes()).toString().replace("-","");
     }
 }
