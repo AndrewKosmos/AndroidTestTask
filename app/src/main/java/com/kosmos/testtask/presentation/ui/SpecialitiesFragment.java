@@ -27,6 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class SpecialitiesFragment extends Fragment implements SpecialitiesAdapter.AdapterListener,
         SpecialitiesFragmentPresenter.View {
@@ -41,6 +42,7 @@ public class SpecialitiesFragment extends Fragment implements SpecialitiesAdapte
     private SpecialitiesFragmentPresenter presenter;
     private ApplicationComponent applicationComponent;
     private FragmentListener fragmentListener;
+    private Unbinder unbinder;
 
     public SpecialitiesFragment() {
         // Required empty public constructor
@@ -68,11 +70,17 @@ public class SpecialitiesFragment extends Fragment implements SpecialitiesAdapte
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_specialities, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         presenter.getAllSpecialities();
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override

@@ -29,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment implements ProfileFragmentPresenter.View {
@@ -54,6 +55,7 @@ public class ProfileFragment extends Fragment implements ProfileFragmentPresente
     private ProfileFragmentPresenter presenter;
     private ApplicationComponent appComponent;
     private String userId;
+    private Unbinder unbinder;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -82,9 +84,15 @@ public class ProfileFragment extends Fragment implements ProfileFragmentPresente
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         presenter.getProfileInfo(userId);
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override

@@ -25,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class EmployeesFragment extends Fragment implements EmployeesAdapter.AdapterListener,
         EmployeesFragmentPresenter.View {
@@ -40,6 +41,7 @@ public class EmployeesFragment extends Fragment implements EmployeesAdapter.Adap
     private ApplicationComponent component;
     private FragmentListener fragmentListener;
     private int specialityId;
+    private Unbinder unbinder;
 
     public EmployeesFragment() {
         // Required empty public constructor
@@ -70,11 +72,17 @@ public class EmployeesFragment extends Fragment implements EmployeesAdapter.Adap
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_employees, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         presenter.getEmployeesForSpecialty(specialityId);
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override
