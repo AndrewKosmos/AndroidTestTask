@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:padding="16dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/custom_layout_border" />
+
+    <TextView
+        android:id="@+id/data_err_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/data_err_message"
+        android:textSize="32sp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_alignTop="@id/err_img"
+        android:layout_marginTop="-80dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:text="@string/see_log"
+        android:layout_alignTop="@id/data_err_message"
+        android:layout_marginTop="40dp"/>
+
+    <ImageView
+        android:id="@+id/err_img"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_error"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+</RelativeLayout>

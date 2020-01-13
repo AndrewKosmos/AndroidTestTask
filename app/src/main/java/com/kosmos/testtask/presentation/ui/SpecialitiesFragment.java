@@ -32,11 +32,16 @@ import butterknife.Unbinder;
 public class SpecialitiesFragment extends Fragment implements SpecialitiesAdapter.AdapterListener,
         SpecialitiesFragmentPresenter.View {
 
+    private static final String TAG = "TestApp";
+
     @BindView(R.id.specialities_recyclerView)
     RecyclerView recyclerView;
 
     @BindView(R.id.spec_loading_layout)
     View loadingLayout;
+
+    @BindView(R.id.data_load_err_layout)
+    View dataErrorLayout;
 
     private SpecialitiesAdapter adapter;
     private SpecialitiesFragmentPresenter presenter;
@@ -106,7 +111,8 @@ public class SpecialitiesFragment extends Fragment implements SpecialitiesAdapte
 
     @Override
     public void showError(String message) {
-
+        dataErrorLayout.setVisibility(View.VISIBLE);
+        Log.d(TAG, message);
     }
 
     public interface FragmentListener {

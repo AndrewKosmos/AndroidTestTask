@@ -35,6 +35,7 @@ public class EmployeesFragmentPresenterImpl implements EmployeesFragmentPresente
 
     private void onEmployeesLoadFailed(Throwable throwable) {
         employeesView.hideProgress();
+        employeesView.showError("Employees load failed: " + throwable.getMessage());
     }
 
     @Override

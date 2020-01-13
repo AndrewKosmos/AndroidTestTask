@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +31,16 @@ import butterknife.Unbinder;
 public class EmployeesFragment extends Fragment implements EmployeesAdapter.AdapterListener,
         EmployeesFragmentPresenter.View {
 
+    private static final String TAG = "TestApp";
+
     @BindView(R.id.employees_recyclerView)
     RecyclerView recyclerView;
 
     @BindView(R.id.employee_loading_layout)
     View loadingLayout;
+
+    @BindView(R.id.emp_data_load_err_layout)
+    View dataErrorLayout;
 
     private EmployeesAdapter adapter;
     private EmployeesFragmentPresenter presenter;
@@ -108,7 +114,8 @@ public class EmployeesFragment extends Fragment implements EmployeesAdapter.Adap
 
     @Override
     public void showError(String message) {
-
+        dataErrorLayout.setVisibility(View.VISIBLE);
+        Log.d(TAG, message);
     }
 
     public interface FragmentListener {

@@ -15,4 +15,9 @@
         layout="@layout/view_loading"
         android:visibility="gone"/>
 
+    <include
+        android:id="@+id/data_load_err_layout"
+        layout="@layout/view_data_load_err"
+        android:visibility="gone"/>
+
 </RelativeLayout>

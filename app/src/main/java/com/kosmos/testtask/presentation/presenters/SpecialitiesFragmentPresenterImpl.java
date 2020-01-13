@@ -35,6 +35,7 @@ public class SpecialitiesFragmentPresenterImpl implements SpecialitiesFragmentPr
 
     private void onSpecialitiesLoadFail(Throwable throwable) {
         specialitiesView.hideProgress();
+        specialitiesView.showError("Specialities load failed: " + throwable.getMessage());
     }
 
     @Override

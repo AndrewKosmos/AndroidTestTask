@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransitionImpl;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -25,11 +26,19 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
         SpecialitiesFragment.FragmentListener,
         EmployeesFragment.FragmentListener {
 
+    private static final String TAG = "TestApp";
+
     @BindView(R.id.loading_layout)
     View loadingLayout;
 
     @BindView(R.id.fragment_container)
     FrameLayout fragmentContainer;
+
+    @BindView(R.id.net_err_layout)
+    View netErrorLayout;
+
+    @BindView(R.id.retry_btn)
+    Button retryBtn;
 
     private MainPresenter mainPresenter;
     private ApplicationComponent applicationComponent;
@@ -49,6 +58,13 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
                                                 applicationComponent.getEmployeeSpecialtyRepository(),
                                                 applicationComponent.getSchedueler()),
                 this, applicationComponent.getSchedueler());
+        retryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                netErrorLayout.setVisibility(View.GONE);
+                mainPresenter.getWebResponse();
+            }
+        });
         mainPresenter.getWebResponse();
     }
 
@@ -64,7 +80,8 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
     @Override
     public void showError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        netErrorLayout.setVisibility(View.VISIBLE);
+        Log.d(TAG, message);
     }
 
     @Override

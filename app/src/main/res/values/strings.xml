@@ -6,4 +6,8 @@
     <string name="birthday_tempate">00.00.0000 г. (Возраст: -)</string>
     <string name="specialities_label">Специальности:</string>
     <string name="date_label">Дата рождения:</string>
+    <string name="data_err_message">Can\'t load data</string>
+    <string name="network_err_message">Network error</string>
+    <string name="see_log">See logs</string>
+    <string name="retry">Retry</string>
 </resources>

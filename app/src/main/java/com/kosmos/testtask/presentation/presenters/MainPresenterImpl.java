@@ -65,8 +65,8 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     private void onWebResponseError(Throwable throwable) {
-        //todo: check throwable
-        mainView.showError("Error while loading Json");
+        mainView.hideProgress();
+        mainView.showError("Error while loading Json: " + throwable.getMessage());
     }
 
     private void onDataSaved() {
